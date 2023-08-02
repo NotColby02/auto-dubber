@@ -1,0 +1,5 @@
+1. Import video file. 
+2. Convert video to audio file. - DONE 
+3. Transcribe audio file. 
+4. Select language to translate to. 
+5. Put translated trascription onto video. 
