@@ -1,0 +1,16 @@
+Transcript: going to be funny my bench PR today with the support of Skyler wrecked my way or 
+Confidence: 0.69
+Is Final: True
+
+Transcript: what that was all white photo my focus but I'm gonna go all the way but it's going to move faster 
+Confidence: 0.6
+Is Final: True
+
+Transcript: well 
+Confidence: 0.82
+Is Final: True
+
+Transcript: the move this I don't dance I'm just getting back into it we don't 
+Confidence: 0.58
+Is Final: True
+
