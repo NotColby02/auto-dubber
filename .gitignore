@@ -3,3 +3,4 @@ autoDubber/
 credentials.txt
 credentials/
 audio/
+code/__pycache__/
