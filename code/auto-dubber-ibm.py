@@ -133,7 +133,7 @@ def main():
     speech_to_text.set_service_url(api_url)
 
     # Stripping audio from video file:
-    video_path = "./video/bench-pr-gone-horribly-wrong.mp4"
+    video_path = "./video/JeffTeague.mp4"
     avs.video_to_audio(video_path)
 
     # Breaking audio into 60 second chunks to fit IBM's free plan usage. 

@@ -1,3 +1,4 @@
+import configparser
 from datetime import datetime 
 from moviepy.video.io.VideoFileClip import VideoFileClip
 import os
@@ -27,7 +28,7 @@ def video_to_audio(video_file: str):
     audio = video.audio 
     audio.write_audiofile(audio_path, codec="pcm_s16le") # Needed to convert to .wav fil
 
-def break_audio_into_chunks(audio_path: str, max_secs: int): 
+def break_audio_into_chunks(audio_path: str, max_secs: int, api_name: str): 
     """
     Breaks an audio file into chunks of 'max_secs' seconds each and exports them as .wav files.
 
@@ -59,7 +60,7 @@ def break_audio_into_chunks(audio_path: str, max_secs: int):
     # Creating 60 sec chunks 
     while start_time < length_audio: 
         chunk = audio[start_time:end_time] 
-        chunk_name = f"chunck{i}_{TODAYS_DATE}_ibm.wav"
+        chunk_name = f"chunck{i}_{TODAYS_DATE}_{api_name}.wav"
         # Exporting chunk 
         chunk.export(f"./audio/{chunk_name}", format="wav") 
         audio_chunks.append(f"./audio/{chunk_name}")
@@ -68,3 +69,9 @@ def break_audio_into_chunks(audio_path: str, max_secs: int):
         end_time += (max_secs * 1000)
         i += 1
     return audio_chunks
+
+def get_openai_credentials(credential_path: str): 
+    config = configparser.ConfigParser() 
+    config.read(credential_path) 
+    api_key = config['Credentials']['API_KEY']
+    return api_key 
