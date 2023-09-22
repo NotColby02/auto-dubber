@@ -8,6 +8,10 @@ import ibm-watson
 pip install -U openai-whisper
 or 
 pip install git+https://github.com/openai/whisper.git 
+
+# To Utilize Open AI's API's 
+pip install openai 
+
 # To update package to latest version 
 pip install --upgrade --no-deps --force-reinstall git+https://github.com/openai/whisper.git
 # on Windows using Chocolatey (https://chocolatey.org/) (Done in PowerShell & Must Have Choco)
