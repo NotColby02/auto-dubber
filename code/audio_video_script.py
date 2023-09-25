@@ -21,12 +21,14 @@ def video_to_audio(video_file: str):
     Returns:
         None. The function saves the output audio file in the "audio" directory.
     """
+    print(f"video_to_audio(videio_file: {video_file})")
     os.makedirs("audio", exist_ok=True)
     audio_path = f"./audio/output_audio_{TODAYS_DATE}.wav" 
 
     video = VideoFileClip(video_file) 
     audio = video.audio 
     audio.write_audiofile(audio_path, codec="pcm_s16le") # Needed to convert to .wav fil
+    print(f"video_to_audio[audio_path: {audio_path}])")
 
 def break_audio_into_chunks(audio_path: str, max_secs: int, api_name: str): 
     """
