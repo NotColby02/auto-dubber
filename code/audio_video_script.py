@@ -72,7 +72,7 @@ def break_audio_into_chunks(audio_path: str, max_secs: int, api_name: str):
         i += 1
     return audio_chunks
 
-def get_openai_credentials(credential_path: str): 
+def get_api_credentials(credential_path: str): 
     config = configparser.ConfigParser() 
     config.read(credential_path) 
     api_key = config['Credentials']['API_KEY']

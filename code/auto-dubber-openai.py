@@ -1,6 +1,7 @@
 import audio_video_script as avs 
 from datetime import datetime 
 # import google.cloud.translate 
+import elevenlabs 
 from google.cloud import translate 
 import openai 
 import os
@@ -92,8 +93,8 @@ class GoogleTokenLimitReached(Exception):
         super().__init__(self.message) 
 
 def write_translation_to_file(translated_text: str, video_name: str): 
-    file_path = f"./translations/{video_name}_translation.txt" 
-    with open(file_path, 'w') as file: 
+    file_path = f"./translated_text/{video_name}_translation.txt" 
+    with open(file_path, 'w', encoding="utf-8") as file: 
         file.write(translated_text)
 
 def google_translate_basic(text: str, target_language_code: str): 
@@ -106,10 +107,21 @@ def google_translate_basic(text: str, target_language_code: str):
     translation = result["translatedText"]
     return translation  
 
+def get_dubbed_audio(translated_text: str, video_name: str): 
+    filename = f"./translated_audio/{video_name}.wav"
+    elevenlabs_api_key = avs.get_api_credentials("./credentials/elevenlabs_creds.txt")
+    elevenlabs.set_api_key(elevenlabs_api_key)
+    audio = elevenlabs.generate(
+        text=translated_text,
+        voice="Ryan", # Need to changle later to allow user to pick voice
+        model="eleven_multilingual_v2"
+    )
+    elevenlabs.save(audio=audio, filename=filename)
+    
 def main(): 
-    API_KEY = avs.get_openai_credentials("./credentials/openai_credentials.txt")
-    print(f"API_KEY: {API_KEY}")
-    openai.api_key = API_KEY 
+    API_KEY_OPENAI = avs.get_api_credentials("./credentials/openai_credentials.txt")
+    print(f"API_KEY: {API_KEY_OPENAI}")
+    openai.api_key = API_KEY_OPENAI 
     MAX_MB_FOR_VIDEO = 25 
     video_file = "./video/CoachPrime.mp4"
     video_name = get_video_name(video_file)
@@ -124,19 +136,19 @@ def main():
         audio_file = F"./audio/output_audio_{TODAYS_DATE}.wav"
         print(f"main[audio_file: {audio_file}]")
         file_size = os.path.getsize(audio_file) / (1024 * 1024) 
-        print(f"audio_file size: {file_size} MB")
+        print(f"audio_file size: {file_size} MB\n\n")
 
         if file_size > MAX_MB_FOR_VIDEO: 
             raise AudioFileTooLong 
         
         # transcription = "would transcribe here"
-        # transcription = transcribe_audio_whisperai(audio_file) 
-        # srt_file_path = write_transcription_to_file(transcription, video_name) 
+        transcription = transcribe_audio_whisperai(audio_file) 
+        write_transcription_to_file(transcription, video_name) 
         srt_paragraph = turn_srt_file_to_paragraph("./transcriptions/2023-09-19_CoachPrime_transcription.srt")
-        print(f"srt_paragraph: {srt_paragraph}") 
+        print(f"srt_paragraph: {srt_paragraph}\n\n") 
 
         total_tokens_transcribed = update_token_tracker(srt_paragraph)
-        print(f"total_tokens_transcribed: {total_tokens_transcribed}")
+        print(f"total_tokens_transcribed: {total_tokens_transcribed}\n\n")
 
         if total_tokens_transcribed >= GOOGLES_MAX_TOKENS: 
             raise GoogleTokenLimitReached  
@@ -144,9 +156,8 @@ def main():
         translation = google_translate_basic(srt_paragraph, "es-419") # es-419 translates to Latin American Spanish (Not Spain) 
         print(translation) 
         write_translation_to_file(translation, video_name) 
+
+        get_dubbed_audio(translation, video_name)
         
-
-
-
 if __name__ == "__main__": 
     main() 
