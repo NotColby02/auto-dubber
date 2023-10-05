@@ -3,8 +3,10 @@ from datetime import datetime
 # import google.cloud.translate 
 import elevenlabs 
 from google.cloud import translate 
+import html
 import openai 
 import os
+import subprocess
 
 TODAYS_DATE = datetime.now().date() 
 GOOGLES_MAX_TOKENS = 500000
@@ -97,15 +99,25 @@ def write_translation_to_file(translated_text: str, video_name: str):
     with open(file_path, 'w', encoding="utf-8") as file: 
         file.write(translated_text)
 
+    return file_path 
+
 def google_translate_basic(text: str, target_language_code: str): 
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./credentials/autodubber-f5336cc011ff.json"
     from google.cloud import translate_v2 as translate 
     translate_client = translate.Client() 
     if isinstance(text, bytes): 
         text = text.decode("utf-8")
-    result = translate_client.translate(text, target_language=target_language_code)
-    translation = result["translatedText"]
-    return translation  
+    split_text = text.split("|")
+    translated_segments = [] 
+    for line in split_text: 
+        translation = translate_client.translate(line, target_language=target_language_code)
+        translated_segments.append(translation["translatedText"].strip())
+    # result = translate_client.translate(text, target_language=target_language_code)
+    # translation = result["translatedText"]
+    translated_text = " | ".join(translated_segments)
+    # Doing this so thing like &quot;No voy a cruzar el Pacífico&quot; won't be in the translation
+    decoded_text = html.unescape(translated_text) 
+    return decoded_text 
 
 def get_dubbed_audio(translated_text: str, video_name: str): 
     filename = f"./translated_audio/{video_name}.wav"
@@ -118,12 +130,58 @@ def get_dubbed_audio(translated_text: str, video_name: str):
     )
     elevenlabs.save(audio=audio, filename=filename)
     
+def make_srt_translation(srt_file: str, translated_text: str): 
+    srt_file_list = srt_file.split("/")
+    filename_split = srt_file.split("_") 
+    filename_split[-1] = "translation.srt"
+    out_file = "_".join(filename_split)
+    print(f"out_file: {out_file}")
+
+    try: 
+        with open(srt_file, "r", encoding="utf-8") as file: 
+            lines = file.readlines() 
+
+        translated_text_split = translated_text.split("|")
+        translated_text_split = [line.strip() for line in translated_text_split]
+        print(f"translated_text_split: {translated_text_split}")
+
+        with open(out_file, "w", encoding="utf-8") as file: 
+            index = 0 
+            for line in lines: 
+                line = line.strip()
+                if not line: 
+                    continue
+                elif line.isdigit():
+                    file.write(f"{line}\n")
+                elif  "-->" in line: 
+                    file.write(f"{line}\n")
+                else: 
+                    file.write(f"{translated_text_split[index]}\n\n")
+                    index += 1 
+                    # if index < len(translated_text_split):
+                    #     file.write(f"{translated_text_split[index]}\n\n")
+                    #     index += 1 
+                    # else:
+                    #     print(f"Warning: No corresponding translation found for subtitle line {index + 1}") 
+        return out_file 
+    except FileNotFoundError: 
+        return "SRT file not found."
+
+def add_subtitles_to_video(video_file, translated_srt_file, output_file): 
+    command = [
+        "ffmpeg", # Runs FFmpeg software
+        "-i", video_file, # Input file
+        "-vf", f"subtitles={translated_srt_file}", # Apply video filter w/ specified SRT file
+        output_file
+    ]
+    subprocess.run(command) 
+
 def main(): 
     API_KEY_OPENAI = avs.get_api_credentials("./credentials/openai_credentials.txt")
     print(f"API_KEY: {API_KEY_OPENAI}")
     openai.api_key = API_KEY_OPENAI 
     MAX_MB_FOR_VIDEO = 25 
-    video_file = "./video/CoachPrime.mp4"
+    video_file = "./video/BadFriendsPod.mp4"
     video_name = get_video_name(video_file)
     print(f"main[video_name: {video_name}]")
     todays_date = avs.TODAYS_DATE
@@ -132,19 +190,18 @@ def main():
     is_within_limits = check_request_limit(requests_made_so_far)
     
     if is_within_limits: 
-        avs.video_to_audio(video_file) 
-        audio_file = F"./audio/output_audio_{TODAYS_DATE}.wav"
-        print(f"main[audio_file: {audio_file}]")
+        audio_file = avs.video_to_audio(video_file) 
+        # audio_file = F"./audio/output_audio_{TODAYS_DATE}.wav"
+        # print(f"main[audio_file: {audio_file}]")
         file_size = os.path.getsize(audio_file) / (1024 * 1024) 
         print(f"audio_file size: {file_size} MB\n\n")
 
         if file_size > MAX_MB_FOR_VIDEO: 
             raise AudioFileTooLong 
         
-        # transcription = "would transcribe here"
-        transcription = transcribe_audio_whisperai(audio_file) 
-        write_transcription_to_file(transcription, video_name) 
-        srt_paragraph = turn_srt_file_to_paragraph("./transcriptions/2023-09-19_CoachPrime_transcription.srt")
+        transcription = transcribe_audio_whisperai(audio_file) # UNCOMMENT LATER
+        srt_file = write_transcription_to_file(transcription, video_name) 
+        srt_paragraph = turn_srt_file_to_paragraph(srt_file)
         print(f"srt_paragraph: {srt_paragraph}\n\n") 
 
         total_tokens_transcribed = update_token_tracker(srt_paragraph)
@@ -154,10 +211,26 @@ def main():
             raise GoogleTokenLimitReached  
         
         translation = google_translate_basic(srt_paragraph, "es-419") # es-419 translates to Latin American Spanish (Not Spain) 
-        print(translation) 
-        write_translation_to_file(translation, video_name) 
+        print(f"translation: {translation}") 
+        translated_file = write_translation_to_file(translation, video_name) 
 
-        get_dubbed_audio(translation, video_name)
+        # get_dubbed_audio(translation, video_name)
+
+        # srt_file_path = "./transcriptions/2023-09-25_CoachPrime_transcription.srt"
+        with open(translated_file, "r", encoding="utf-8") as file: 
+            translated_text = file.read() 
+
+        # print(f"translated_text: {translated_text}")
+        
+        translated_srt_file = make_srt_translation(srt_file, translated_text)
+        subtitled_video = f"./video/{video_name}_translated_subtitles.mp4"
+
+        add_subtitles_to_video(video_file, translated_srt_file, subtitled_video)
+
         
 if __name__ == "__main__": 
     main() 
+
+# Issue: Google translate is moving the pipe around, which then throws off the translation and the 
+#        subtitles. Thinking about using open AI to get the translation. Might be the easiest move. 
+

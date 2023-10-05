@@ -29,6 +29,7 @@ def video_to_audio(video_file: str):
     audio = video.audio 
     audio.write_audiofile(audio_path, codec="pcm_s16le") # Needed to convert to .wav fil
     print(f"video_to_audio[audio_path: {audio_path}])")
+    return audio_path 
 
 def break_audio_into_chunks(audio_path: str, max_secs: int, api_name: str): 
     """
