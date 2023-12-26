@@ -1,0 +1,260 @@
+scores.shape: (86, 521)
+
+Start: 0 | End: 2
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 0.00 to 1.00: 0,/m/09x0r,Speech
+
+Start: 2 | End: 4
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 0.96 to 1.96: 0,/m/09x0r,Speech
+
+Start: 4 | End: 6
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 1.92 to 2.92: 0,/m/09x0r,Speech
+
+Start: 6 | End: 8
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 2.88 to 3.88: 0,/m/09x0r,Speech
+
+Start: 8 | End: 10
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 3.84 to 4.84: 0,/m/09x0r,Speech
+
+Start: 10 | End: 12
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 4.80 to 5.80: 0,/m/09x0r,Speech
+
+Start: 12 | End: 14
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 5.76 to 6.76: 0,/m/09x0r,Speech
+
+Start: 14 | End: 16
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 6.72 to 7.72: 0,/m/09x0r,Speech
+
+Start: 16 | End: 18
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 7.68 to 8.68: 0,/m/09x0r,Speech
+
+Start: 18 | End: 20
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 8.64 to 9.64: 0,/m/09x0r,Speech
+
+Start: 20 | End: 22
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 9.60 to 10.60: 0,/m/09x0r,Speech
+
+Start: 22 | End: 24
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 10.56 to 11.56: 0,/m/09x0r,Speech
+
+Start: 24 | End: 26
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 11.52 to 12.52: 0,/m/09x0r,Speech
+
+Start: 26 | End: 28
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 12.48 to 13.48: 0,/m/09x0r,Speech
+
+Start: 28 | End: 30
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 13.44 to 14.44: 0,/m/09x0r,Speech
+
+Start: 30 | End: 32
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 14.40 to 15.40: 0,/m/09x0r,Speech
+
+Start: 32 | End: 34
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 15.36 to 16.36: 0,/m/09x0r,Speech
+
+Start: 34 | End: 36
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 16.32 to 17.32: 0,/m/09x0r,Speech
+
+Start: 36 | End: 38
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 17.28 to 18.28: 0,/m/09x0r,Speech
+
+Start: 38 | End: 40
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 18.24 to 19.24: 0,/m/09x0r,Speech
+
+Start: 40 | End: 42
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 19.20 to 20.20: 0,/m/09x0r,Speech
+
+Start: 42 | End: 44
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 20.16 to 21.16: 0,/m/09x0r,Speech
+
+Start: 44 | End: 46
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 21.12 to 22.12: 0,/m/09x0r,Speech
+
+Start: 46 | End: 48
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 22.08 to 23.08: 0,/m/09x0r,Speech
+
+Start: 48 | End: 50
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 23.04 to 24.04: 0,/m/09x0r,Speech
+
+Start: 50 | End: 52
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 24.00 to 25.00: 0,/m/09x0r,Speech
+
+Start: 52 | End: 54
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 24.96 to 25.96: 0,/m/09x0r,Speech
+
+Start: 54 | End: 56
+class_id: 64
+class_name: 64,/m/03qtwd,Crowd
+
+Time 25.92 to 26.92: 64,/m/03qtwd,Crowd
+
+Start: 56 | End: 58
+class_id: 459
+class_name: 459,/m/018w8,Basketball bounce
+
+Time 26.88 to 27.88: 459,/m/018w8,Basketball bounce
+
+Start: 58 | End: 60
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 27.84 to 28.84: 0,/m/09x0r,Speech
+
+Start: 60 | End: 62
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 28.80 to 29.80: 0,/m/09x0r,Speech
+
+Start: 62 | End: 64
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 29.76 to 30.76: 0,/m/09x0r,Speech
+
+Start: 64 | End: 66
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 30.72 to 31.72: 0,/m/09x0r,Speech
+
+Start: 66 | End: 68
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 31.68 to 32.68: 0,/m/09x0r,Speech
+
+Start: 68 | End: 70
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 32.64 to 33.64: 0,/m/09x0r,Speech
+
+Start: 70 | End: 72
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 33.60 to 34.60: 0,/m/09x0r,Speech
+
+Start: 72 | End: 74
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 34.56 to 35.56: 0,/m/09x0r,Speech
+
+Start: 74 | End: 76
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 35.52 to 36.52: 0,/m/09x0r,Speech
+
+Start: 76 | End: 78
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 36.48 to 37.48: 0,/m/09x0r,Speech
+
+Start: 78 | End: 80
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 37.44 to 38.44: 0,/m/09x0r,Speech
+
+Start: 80 | End: 82
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 38.40 to 39.40: 0,/m/09x0r,Speech
+
+Start: 82 | End: 84
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 39.36 to 40.36: 0,/m/09x0r,Speech
+
+Start: 84 | End: 86
+class_id: 0
+class_name: 0,/m/09x0r,Speech
+
+Time 40.32 to 41.32: 0,/m/09x0r,Speech
+

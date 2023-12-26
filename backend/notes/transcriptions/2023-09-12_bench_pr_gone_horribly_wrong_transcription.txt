@@ -1,0 +1,16 @@
+Transcript: and I have some feedback over bottle for curry yes I would want to 
+Confidence: 0.69
+Is Final: True
+
+Transcript: okay we played game one may be to somehow you know game once a test game they're my life yeah you gotta figure each other out game two to be about thirty some I went to the locker room it's all about packing up my truck was packed to the Milwaukee you know I was later have a sis I had all busted it for us it is over curry's sprained ankle do you see that the whole team you see a energy to get zapped but you see the energy on our team this might be artsy 
+Confidence: 0.68
+Is Final: True
+
+Transcript: so I'm lie you place up at the end of the visit me at all to do that I play me acts will bring forth we get no clock that we buy price still gonna be those you know I'm doing them or how you can really get in the day by Loki like many 
+Confidence: 0.51
+Is Final: True
+
+Transcript: but I'm hurt I hurt my knee so I was like oh yeah we can we but I really think we can we can 
+Confidence: 0.77
+Is Final: True
+
